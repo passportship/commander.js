@@ -676,22 +676,21 @@ export class Command {
   /**
    * Parse `argv`, setting options and invoking commands when defined.
    *
-   * Use parseAsync instead of parse if any of your action handlers are async. Returns a Promise.
+   * Returns an action result.
    *
    * The default expectation is that the arguments are from node and have the application as argv[0]
    * and the script being run in argv[1], with user parameters after that.
    *
    * @example
    * ```
-   * program.parseAsync(process.argv);
-   * program.parseAsync(); // implicitly use process.argv and auto-detect node vs electron conventions
-   * program.parseAsync(my-args, { from: 'user' }); // just user supplied arguments, nothing special about argv[0]
+   * program.getActionResult(process.argv);
+   * program.getActionResult(); // implicitly use process.argv and auto-detect node vs electron conventions
+   * program.getActionResult(my-args, { from: 'user' }); // just user supplied arguments, nothing special about argv[0]
    * ```
    *
-   * @returns Promise
+   * @returns `this` command for chaining
    */
-  parseAsync(argv?: readonly string[], options?: ParseOptions): Promise<this>;
-
+  getActionResult(argv?: readonly string[], options?: ParseOptions): any;
   /**
    * Parse options from `argv` removing known options,
    * and return argv split into operands and unknown arguments.
