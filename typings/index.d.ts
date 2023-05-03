@@ -414,11 +414,6 @@ export class Command {
   addHelpCommand(enableOrNameAndArgs?: string | boolean, description?: string): this;
 
   /**
-   * Add hook for life cycle event.
-   */
-  hook(event: HookEvent, listener: (thisCommand: Command, actionCommand: Command) => void | Promise<void>): this;
-
-  /**
    * Register callback to use as replacement for calling process.exit.
    */
   exitOverride(callback?: (err: CommanderError) => never | void): this;
@@ -494,7 +489,7 @@ export class Command {
    *
    * @returns `this` command for chaining
    */
-  action(fn: (...args: any[]) => void | Promise<void>): this;
+  action(fn: (...args: any[]) => any): this;
 
   /**
    * Define option with `flags`, `description` and optional
