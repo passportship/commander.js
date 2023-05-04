@@ -279,6 +279,7 @@ export type OptionValues = Record<string, any>;
 export class Command {
   args: string[];
   processedArgs: any[];
+  readonly definedArgs: readonly Argument[];
   readonly commands: readonly Command[];
   readonly options: readonly Option[];
   parent: Command | null;
@@ -400,6 +401,13 @@ export class Command {
   arguments(names: string): this;
 
   /**
+   * returns a list of defined command arguments
+   *
+   * @returns list of defined arguments
+   */
+  argumentList(): Argument[];
+
+  /**
    * Override default decision whether to add implicit help command.
    *
    * @example
@@ -489,7 +497,7 @@ export class Command {
    *
    * @returns `this` command for chaining
    */
-  action(fn: (...args: any[]) => any): this;
+  action(fn: (args: { args: Record<string, any>; opts: Record<string, any> }, command: Command) => { args: Record<string, any>; opts: Record<string, any> }): this;
 
   /**
    * Define option with `flags`, `description` and optional
