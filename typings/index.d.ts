@@ -1,6 +1,11 @@
 // Type definitions for commander
 // Original definitions by: Alan Agius <https://github.com/alan-agius4>, Marcelo Dezem <https://github.com/mdezem>, vvakame <https://github.com/vvakame>, Jules Randolph <https://github.com/sveinburne>
 
+export interface IParsedActionResult {
+  args: Record<string, any>;
+  opts: Record<string, any>;
+}
+
 // Using method rather than property for method-signature-style, to document method overloads separately. Allow either.
 /* eslint-disable @typescript-eslint/method-signature-style */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -497,7 +502,7 @@ export class Command {
    *
    * @returns `this` command for chaining
    */
-  action(fn: (args: { args: Record<string, any>; opts: Record<string, any> }, command: Command) => { args: Record<string, any>; opts: Record<string, any> }): this;
+  action(fn: (args: IParsedActionResult, command: Command) => IParsedActionResult): this;
 
   /**
    * Define option with `flags`, `description` and optional
@@ -693,7 +698,7 @@ export class Command {
    *
    * @returns `this` command for chaining
    */
-  getActionResult(argv?: readonly string[], options?: ParseOptions): any;
+  getActionResult(argv?: readonly string[], options?: ParseOptions): IParsedActionResult;
   /**
    * Parse options from `argv` removing known options,
    * and return argv split into operands and unknown arguments.
