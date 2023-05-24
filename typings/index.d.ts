@@ -502,7 +502,7 @@ export class Command {
    *
    * @returns `this` command for chaining
    */
-  action(fn: (args: IParsedActionResult, command: Command) => IParsedActionResult): this;
+  action(fn: (args: IParsedActionResult, command: Command) => [IParsedActionResult, Command]): this;
 
   /**
    * Define option with `flags`, `description` and optional
@@ -698,7 +698,7 @@ export class Command {
    *
    * @returns `this` command for chaining
    */
-  getActionResult(argv?: readonly string[], options?: ParseOptions): IParsedActionResult;
+  getActionResult(argv?: readonly string[], options?: ParseOptions): [IParsedActionResult, Command];
   /**
    * Parse options from `argv` removing known options,
    * and return argv split into operands and unknown arguments.
